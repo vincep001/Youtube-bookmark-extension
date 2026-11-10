@@ -1,0 +1,10 @@
+{
+    "name": "My YT bookmark",
+    "version": "1.0",
+    "description": "A simple chrome extension to bookmark youtube videos",
+    "permissions": ["storage", "tabs"],
+    "host_permissions": ["https://www.youtube.com/*"],
+    "background": {
+        "service_worker": "background.js"
+    }
+}
