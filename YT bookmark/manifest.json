@@ -3,8 +3,17 @@
     "version": "1.0",
     "description": "A simple chrome extension to bookmark youtube videos",
     "permissions": ["storage", "tabs"],
-    "host_permissions": ["https://www.youtube.com/*"],
+    "host_permissions": ["https://*.youtube.com/*"],
     "background": {
         "service_worker": "background.js"
-    }
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["https://*.youtube.com/*"],
+            "js": ["contentScript.js"]
+        }
+    ],
+    "comment": "unfinished part, need to add icons and other",
+    "web_accessible_resources": []
 }
