@@ -15,5 +15,13 @@
         }
     ],
     "comment": "unfinished part, need to add icons and other",
-    "web_accessible_resources": []
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "assets/star.png",
+                "assets/play-button.png",
+                "assets/delete.png"
+            ]
+        }
+    ]
 }
