@@ -27,11 +27,24 @@
             youtubeLeftControls = document.getElementsByClassName("ytp-left-controls")[0];
             youtubePlayer =  document.getElementsByClassName("video-stream")[0];
 
-            youtubeLeftControls?.append(bookmarrkBtn);
-            bookmarkBtn.addEvenntListener("click", addNewBookmarkEventHandler);
+            youtubeLeftControls?.append(bookmarkBtn);
+            bookmarkBtn.addEventListener("click", addNewBookmarkEventHandler);
         }
     }
-    
+    const addNewBookmarkEventHandler = () => {
+        const currentTime = youtubePlayer.currentTime;
+        const newBookmark = {
+            time: currentTime,
+            desc: "Bookmark at " + getTime(currentTime),
+        };
+        console.log(newBookmark);
+
+        chrome.storage.sync.set({
+            [currentVideo]: JSON.stringify([...currentVideoBookmarks, newBookmark].sort((a,b) => a.time - b.time))
+        });
+
+
+    } "this is the end code snippet"
 
 
 
