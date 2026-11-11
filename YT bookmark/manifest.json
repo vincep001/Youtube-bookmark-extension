@@ -21,8 +21,12 @@
                 "assets/star.png",
                 "assets/play-button.png",
                 "assets/delete.png"
-            ]
+            ],
+            "matches": ["https://*.youtube.com/*"]
         }
-    ]
+    ],
+    "action": {
+        
+    }
 },
 "to be continued": "AHAHAHHA"
