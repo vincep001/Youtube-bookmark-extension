@@ -14,7 +14,6 @@
             "js": ["contentScript.js"]
         }
     ],
-    "comment": "unfinished part, need to add icons and other",
     "web_accessible_resources": [
         {
             "resources": [
