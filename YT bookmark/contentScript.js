@@ -47,16 +47,38 @@
             time: currentTime,
             desc: "Bookmark at " + getTime(currentTime),
         };
-        console.log(newBookmark);
+        
+        currentVideoBookmarks = await fetchBookmarks();
 
         chrome.storage.sync.set({
             [currentVideo]: JSON.stringify([...currentVideoBookmarks, newBookmark].sort((a,b) => a.time - b.time))
         });
+    }; 
+
+    const newVideoLoaded = async () => {
+        const bookmarkBtnExists = document.getElementById("bookmark-btn")[0];
+        
+        currentVideoBookmarks = await fetchBookmarks();
+
+        if (!bookmarkBtnExists) {
+            const bookmarkBtn = document.createdElement("img");
+
+            bookmarkBtn.src = chrome.runtime.getURL("assets/bookmark.png");
+            bookmarkBtn.classname = "ytp-button" + "bookmark-btn";
+            bookmarkBtn.title = "Click to bookmark current timestamp";
+
+            youtubeLeftControls = document.getElementsByClassName("ytp-left-controls")[0];
+            youtubePlayer =  document.getElementsByClassName("video-stream")[0];
+
+            youtubeLeftControls?.append(bookmarkBtn);
+            bookmarkBtn.addEventListener("click", addNewBookmarkEventHandler);
+        }
+    };
 
 
-    } 
 
-    newVideoLoaded();
+
+
 })();
 
 const getTime = t => {
