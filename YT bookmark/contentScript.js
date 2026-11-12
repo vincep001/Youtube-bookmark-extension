@@ -3,35 +3,45 @@
     let currentVideo = "";
     let currentVideoBookmarks = [];
 
-    chrome.runtime.onMessage.addListener((obj, sender, response) => {
-        const { type, value, videoId } = obj;
+    const fetchBookmarks = () => {
+        return new Promise((resolve) => {
+            chrome.storage.sync.get([currentVideo], (obj) => {
+                resolve(obj[currentVideo] ? JSON.parse(obj[currentVideo]) : []);
+            });
+        });
+    };
 
-        if (type === "NEW") {
-            currentVideo = videoId;
-            newVideoLoaded();
-        }
-    });
+    // chrome.runtime.onMessage.addListener((obj, sender, response) => {
+    //     const { type, value, videoId } = obj;
 
-    const newVideoLoaded = () => {
+    //     if (type === "NEW") {
+    //         currentVideo = videoId;
+    //         newVideoLoaded();
+    //     }
+    // });
 
-        const bookmarkBtnExists = document.getElementById("bookmark-btn")[0];
-        console.log(bookmarkBtnExists);
+    // const newVideoLoaded = () => {
 
-        if (!bookmarkBtnExists) {
-            const bookmarkBtn = document.createdElement("img");
+    //     const bookmarkBtnExists = document.getElementById("bookmark-btn")[0];
+    //     console.log(bookmarkBtnExists);
 
-            bookmarkBtn.src = chrome.runtime.getURL("assets/bookmark.png");
-            bookmarkBtn.classname = "ytp-button" + "bookmark-btn";
-            bookmarkBtn.title = "Click to bookmark current timestamp";
+    //     if (!bookmarkBtnExists) {
+    //         const bookmarkBtn = document.createdElement("img");
 
-            youtubeLeftControls = document.getElementsByClassName("ytp-left-controls")[0];
-            youtubePlayer =  document.getElementsByClassName("video-stream")[0];
+    //         bookmarkBtn.src = chrome.runtime.getURL("assets/bookmark.png");
+    //         bookmarkBtn.classname = "ytp-button" + "bookmark-btn";
+    //         bookmarkBtn.title = "Click to bookmark current timestamp";
 
-            youtubeLeftControls?.append(bookmarkBtn);
-            bookmarkBtn.addEventListener("click", addNewBookmarkEventHandler);
-        }
-    }
-    const addNewBookmarkEventHandler = () => {
+    //         youtubeLeftControls = document.getElementsByClassName("ytp-left-controls")[0];
+    //         youtubePlayer =  document.getElementsByClassName("video-stream")[0];
+
+    //         youtubeLeftControls?.append(bookmarkBtn);
+    //         bookmarkBtn.addEventListener("click", addNewBookmarkEventHandler);
+    //     }
+    // }
+
+    /*continuation part 1  */
+    const addNewBookmarkEventHandler = async () => {
         const currentTime = youtubePlayer.currentTime;
         const newBookmark = {
             time: currentTime,
