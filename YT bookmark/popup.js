@@ -18,8 +18,9 @@ const addNewBookmark = () => {
     newBookElement.setAttribute("timestamp", bookmark.time);
 
     newBookmarkElement.appendChild(bookmarkTitleElement);
-    
-}
+    newBookmarkElement.appendChild(controlsElement);
+    bookmarks.appendChild(newBookmarkElement);
+};
 
 
 
