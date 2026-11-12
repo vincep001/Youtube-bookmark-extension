@@ -89,11 +89,9 @@
 
             response(currentVideoBookmarks);
         }
-    }
+    });
 
-
-
-
+    newVideoLoaded();
 
 })();
 
@@ -103,4 +101,4 @@ const getTime = t => {
 
     return date.toISOString().substr(11, 8);
 
-}
+};
