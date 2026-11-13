@@ -18,6 +18,7 @@
         {
             "resources": [
                 "assets/star.png",
+                "assets/save.png",
                 "assets/bookmark.png",
                 "assets/play-button.png",
                 "assets/delete.png"
