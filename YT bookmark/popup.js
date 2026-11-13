@@ -87,8 +87,12 @@ document.addEventListener("DOMContentLoadedc", async () => {
 
             viewBookmarks(currentVideoBookmarks);
         });
+    } else {
+        const container = document.getElementsByClassName("container")[0];
+
+        container.innerHTML = '<div class="title">This is not a youtube video page.</div>';
     }
-})
+});
 
 
 
