@@ -27,7 +27,7 @@
     }; 
 
     const newVideoLoaded = async () => {
-        const bookmarkBtnExists = document.getElementById("bookmark-btn")[0];
+        const bookmarkBtnExists = document.getElementById("bookmark-btn");
         
         currentVideoBookmarks = await fetchBookmarks();
 
