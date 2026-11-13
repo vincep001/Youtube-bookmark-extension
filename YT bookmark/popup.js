@@ -49,6 +49,15 @@ const onPlay =  async e => {
     });
 };
 
+const onDelete = async e => {
+    const activeTab = await getActiveTabURL();
+    const bookmarkTime = e.target.parentNode.parentNode.getAttribute("timestamp");
+    const bookmarkElementToDelete = document.getElementById(
+        "bookmark-" + bookmarkTime
+    );
+
+}
+
 
 
 
