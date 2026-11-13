@@ -1,28 +1,29 @@
+
 // this is for adding bookmark new rows to our popup
 import { getActiveTabURL } from "./utils.js";
 
 const addNewBookmark = (bookmarks, bookmark) => {
-    const bookmarkTitleElemet = document.createdElement("div");
-    const controlsElemet = document.createdElement("div");
-    const newBookmarkElement = document.createdElement("div");
+    const bookmarkTitleElement = document.createElement("div");
+    const controlsElement = document.createElement("div");
+    const newBookmarkElement = document.createElement("div");
 
     bookmarkTitleElement.textContent = bookmark.desc;
     bookmarkTitleElement.className = "bookmark-title";
     controlsElement.className = "bookmark-controls";
 
-    setBookmarkAttributes("play", onplay, controlsElement);
+    setBookmarkAttributes("play", onPlay, controlsElement);
     setBookmarkAttributes("delete", onDelete, controlsElement);
 
     newBookmarkElement.id = "bookmark" + bookmark.time;
     newBookmarkElement.className = "bookmark";
-    newBookElement.setAttribute("timestamp", bookmark.time);
+    newBookmarkElement.setAttribute("timestamp", bookmark.time);
 
     newBookmarkElement.appendChild(bookmarkTitleElement);
     newBookmarkElement.appendChild(controlsElement);
     bookmarks.appendChild(newBookmarkElement);
 };
 
-const viewBookmarks = (currentBookmarks=[]) => {
+const viewBookmarks = (currentBookmarks = []) => {
     const bookmarksElement = document.getElementById("bookmarks");
     bookmarksElement.innerHTML = "";
 
@@ -30,51 +31,51 @@ const viewBookmarks = (currentBookmarks=[]) => {
         for (let i = 0; i < currentBookmarks.length; i++) {
             const bookmark = currentBookmarks[i];
             addNewBookmark(bookmarksElement, bookmark);
+        }
+    } else {
+        bookmarksElement.innerHTML = '<i class="row">No bookmarks to show</i>';
     }
-} else {
-    bookmarksElement.innerHTML = '<i class="row">No bookmarks to show</i>';
-}
 
-return;
+    return;
 };
 
-const onPlay =  async e => {
+const onPlay = async (e) => {
     const bookmarkTime = e.target.parentNode.parentNode.getAttribute("timestamp");
-    const activeTab =  await getActiveTabURL();
-
+    const activeTab = await getActiveTabURL();
 
     chrome.tabs.sendMessage(activeTab.id, {
-        Type: "PLAY",
-        value: bookmarksTime,
+        type: "PLAY",
+        value: Number(bookmarkTime),
     });
 };
 
-const onDelete = async e => {
+const onDelete = async (e) => {
     const activeTab = await getActiveTabURL();
     const bookmarkTime = e.target.parentNode.parentNode.getAttribute("timestamp");
+
     const bookmarkElementToDelete = document.getElementById(
-        "bookmark-" + bookmarkTime
+        "bookmark" + bookmarkTime
     );
 
     bookmarkElementToDelete.parentNode.removeChild(bookmarkElementToDelete);
 
     chrome.tabs.sendMessage(activeTab.id, {
         type: "DELETE",
-        value: bookmarkTime,
+        value: Number(bookmarkTime),
     }, viewBookmarks);
 };
 
 const setBookmarkAttributes = (src, addEventListener, controlParentElement) => {
     const controlElement = document.createElement("img");
 
-
     controlElement.src = "assets/" + src + ".png";
     controlElement.title = src;
-    controlElement.addEventListener("click", eventListener);
-controlParentElement.appendChild(controlElement);
+    controlElement.addEventListener("click", addEventListener);
+
+    controlParentElement.appendChild(controlElement);
 };
 
-document.addEventListener("DOMContentLoadedc", async () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const activeTab = await getActiveTabURL();
     const queryParameters = activeTab.url.split("?")[1];
     const urlParameters = new URLSearchParams(queryParameters);
@@ -83,7 +84,9 @@ document.addEventListener("DOMContentLoadedc", async () => {
 
     if (activeTab.url.includes("youtube.com/watch") && currentVideo) {
         chrome.storage.sync.get([currentVideo], (data) => {
-            const currentVideoBookmarks = data[currentVideo] ? JSON.parse(data[currentVideo]) : [];
+            const currentVideoBookmarks = data[currentVideo]
+                ? JSON.parse(data[currentVideo])
+                : [];
 
             viewBookmarks(currentVideoBookmarks);
         });
@@ -93,7 +96,3 @@ document.addEventListener("DOMContentLoadedc", async () => {
         container.innerHTML = '<div class="title">This is not a youtube video page.</div>';
     }
 });
-
-
-
-
