@@ -37,7 +37,7 @@
         if (!bookmarkBtnExists) {
             const bookmarkBtn = document.createElement("img");
 
-            bookmarkBtn.src = chrome.runtime.getURL("assets/bookmark.png");
+            bookmarkBtn.src = chrome.runtime.getURL("assets/save.png");
             bookmarkBtn.className = "ytp-button bookmark-btn";
             bookmarkBtn.id = "bookmark-btn";
             bookmarkBtn.title = "Click to bookmark current timestamp";

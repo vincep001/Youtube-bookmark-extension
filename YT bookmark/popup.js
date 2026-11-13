@@ -68,7 +68,7 @@ const onDelete = async (e) => {
 const setBookmarkAttributes = (src, addEventListener, controlParentElement) => {
     const controlElement = document.createElement("img");
 
-    controlElement.src = "assets/" + src + ".png";
+    controlElement.src = "assets/" + (src === "play" ? "play-button" : src) + ".png";
     controlElement.title = src;
     controlElement.addEventListener("click", addEventListener);
 
