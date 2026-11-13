@@ -31,7 +31,23 @@ const viewBookmarks = (currentBookmarks=[]) => {
             const bookmark = currentBookmarks[i];
             addNewBookmark(bookmarksElement, bookmark);
     }
+} else {
+    bookmarksElement.innerHTML = '<i class="row">No bookmarks to show</i>';
 }
+
+return;
+};
+
+const onPlay =  async e => {
+    const bookmarkTime = e.target.parentNode.parentNode.getAttribute("timestamp");
+    const activeTab =  await getActiveTabURL();
+
+
+    chrome.tabs.sendMessage(activeTab.id, {
+        Type: "PLAY",
+        value: bookmarksTime,
+    });
+};
 
 
 
