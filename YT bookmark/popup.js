@@ -97,6 +97,3 @@ document.addEventListener("DOMContentLoadedc", async () => {
 
 
 
-// const addNewBookmark = () => {};
-
-// const viewBookmarks = () => {};
