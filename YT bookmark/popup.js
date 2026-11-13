@@ -60,9 +60,21 @@ const onDelete = async e => {
 
     chrome.tabs.sendMessage(activeTab.id, {
         type: "DELETE",
-        valueL: bookmarkTime,
+        value: bookmarkTime,
     }, viewBookmarks);
 };
+
+const setBookmarkAttributes = (src, addEventListener, controlParentElement) => {
+    const controlElement = document.createElement("img");
+
+
+    controlElement.src = "assets/" + src + ".png";
+    controlElement.title = src;
+    controlElement.addEventListener("click", eventListener);
+controlParentElement.appendChild(controlElement);
+};
+
+
 
 
 
