@@ -22,6 +22,17 @@ const addNewBookmark = () => {
     bookmarks.appendChild(newBookmarkElement);
 };
 
+const viewBookmarks = (currentBookmarks=[]) => {
+    const bookmarksElement = document.getElementById("bookmarks");
+    bookmarksElement.innerHTML = "";
+
+    if (currentBookmarks.length > 0) {
+        for (let i = 0; i < currentBookmarks.length; i++) {
+            const bookmark = currentBookmarks[i];
+            addNewBookmark(bookmarksElement, bookmark);
+    }
+}
+
 
 
 
